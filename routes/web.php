@@ -11,13 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-	return [
-		"status_code"=>200,
-		"message"=>"welcome"
-	];
-	## json xml api
-    return view('welcome');
-});
+//Route::get('/', function () {
+//	return [
+//		"status_code"=>200,
+//		"message"=>"welcome"
+//	];
+//	## json xml api
+//    return view('welcome');
+//});
 
-//Route::get("/index","IndexController@index");
+//(new IndexController())->index()
+
+Route::get("/login","Login\AuthController@login");
+Route::post("/toLogin","Login\AuthController@toLogin");
+
+
+
