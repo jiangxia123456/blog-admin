@@ -11,19 +11,21 @@
 |
 */
 
-//Route::get('/', function () {
-//	return [
-//		"status_code"=>200,
-//		"message"=>"welcome"
-//	];
-//	## json xml api
-//    return view('welcome');
-//});
+Route::get('/', function () {
+	return [
+		"status_code"=>200,
+		"message"=>"welcome"
+	];
+	## json xml api
+    return view('welcome');
+});
 
-//(new IndexController())->index()
+//Route::get("/index","IndexController@index");
 
-Route::get("/login","Login\AuthController@login");
-Route::post("/toLogin","Login\AuthController@toLogin");
-
-
-
+Route::get('/',function(){
+    return 'Hello World';
+});
+Route::get('/user','UserController@index');
+Route::get('user/{id}','UserController@show');
+Route::get('foo','/Photos/AdminController@method');
+//Route::get('user/{id}','ShowProfile');
