@@ -11,21 +11,25 @@
 |
 */
 
-Route::get('/', function () {
-	return [
-		"status_code"=>200,
-		"message"=>"welcome"
-	];
-	## json xml api
-    return view('welcome');
-});
+//Route::get('/', function () {
+//	return [
+//		"status_code"=>200,
+//		"message"=>"welcome"
+//	];
+//	## json xml api
+//    return view('welcome');
+//});
 
-//Route::get("/index","IndexController@index");
+//(new IndexController())->index()
 
-Route::get('/',function(){
-    return 'Hello World';
+Route::get("/login","Login\AuthController@login");
+Route::post("/toLogin","Login\AuthController@toLogin");
+Route::get("/register","Login\AuthController@register");
+Route::post("/toRegister","Login\AuthController@toRegister");
+
+
+
+
+Route::prefix('admin')->group(function () {
+    Route::get("/index","Admin\IndexController@index");
 });
-Route::get('/user','UserController@index');
-Route::get('user/{id}','UserController@show');
-Route::get('foo','/Photos/AdminController@method');
-//Route::get('user/{id}','ShowProfile');
