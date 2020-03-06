@@ -1,4 +1,6 @@
+<html>
 @include("admin.header")
+
 <body class="login-bg">
     
     <div class="login">
@@ -18,11 +20,12 @@
             <hr class="hr15">
             <input name="password" lay-verify="required" placeholder="二次密码"  type="password" class="layui-input">
             <hr class="hr15">
-            @if ( !empty($captcha) )
+            @if ( empty($captcha) )
             <p style="text-align: center;color: red">{{ $captcha[0] }}</p>
             @endif
             <input  name="captcha" placeholder="验证码"  lay-verify="required" class="layui-input" style="width: 40%;float: left">
-            <img src="{{captcha_src()}}" style="float: left;margin-left:20px">
+            <img src="{{captcha_src()}}" style="float: left;margin-left:20px" id="verify_img">
+            <a id="kanbuq" href="javascript:;">换一张</a>
             <hr class="hr15">
             <input value="注册" lay-submit lay-filter="login" style="width:100%;" type="submit">
             <hr class="hr20" >
@@ -46,6 +49,11 @@
             //   });
             // });
         })
+
+        /*function refreshVerify(){
+            var ts=Date.parse(new Date())/1000;
+            $("#verify_img").attr("src","/captcha?id="+ts);//刷新验证码
+        }*/
 
         
     </script>

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div class="layui-container" style="margin-top: 20%;">
+<div class="layui-container" style="margin-topbac">
     <div class="layui-row">
         <form class="layui-form" action="/toLogin" method="post">
             @csrf
@@ -26,7 +26,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button type="submit" class="layui-btn" lay-submit lay-filter="formDemo">登录</button>
+                    <input type="submit" class="layui-btn" lay-submit lay-filter="formDemo" value="登录" name="login"/>
                 </div>
             </div>
         </form>

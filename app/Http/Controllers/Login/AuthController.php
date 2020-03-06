@@ -68,7 +68,8 @@ class AuthController extends Controller
             "password.required"=>"密码不能为空",
             "password.between"=>"密码长度不符合规则",
             "captcha.required"=>"验证码不能为空",
-            "captcha.captcha"=>"验证码错误",
+            "captcha.captcha"=>"验证码错误"
+
         ]);
 
         if($validator->fails()){
@@ -85,8 +86,26 @@ class AuthController extends Controller
         $user ->username = $request->get("username");
         $user ->password = $password;
         if(!$user->save()){
-             //处理
+            echo "<script>alert('信息注册失败！')</script>";
+            return view("admin.register");
+        }else{
+
+            echo "<script>alert('信息注册成功！')</script>";
+            return view("admin.login");
+
         }
+
+        /* 判断注册时用户名是否已经存在
+
+               */
+        $user1 = User::where("username", $request->get("username"));
+        if($user->username==$user1->username){
+            echo "<script>alert('用户名已存在，请重新注册！')</script>";
+
+        }else{
+            return view("admin.login");
+        }
+
 
 //        $result = $user -> insert([
 //            "username"=>$request->get("username"),
