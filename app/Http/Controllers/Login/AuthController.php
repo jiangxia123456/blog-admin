@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Validator;
 
 class AuthController extends Controller
@@ -37,8 +38,8 @@ class AuthController extends Controller
         }
 
         // 设置一个session 作为权限验证
-//        session($request->get("username")."_ver_session", "true");
-//        session("username", $request->get("username"));
+        $_SESSION["username"] = $request->get("username");
+        $_SESSION[$request->get("username")] = true;
 
         // 验证验证码
 
@@ -51,7 +52,9 @@ class AuthController extends Controller
     // 注册
     public function register(Request $request){
 
-
+        // select * from user where username=wudner limit 1
+//        $user = User::where("username", "wudner")->first()->toarray();
+//        dd($user);
         return view("admin.register");
     }
 
@@ -77,6 +80,14 @@ class AuthController extends Controller
             return view("admin.register", $error);
         }
 
+
+        // pa判断用户名是否存在了数据库里面
+        $user = User::where("username", $request->get("username"))->first();
+        if($user){
+            return "不准注册";
+        }
+
+
         // 通过之后
 
         // 加密密码 md5 + 盐值
@@ -101,7 +112,7 @@ class AuthController extends Controller
 
         */
 
-        $user1 = User::where("username", $request->get("username"));
+//        $user1 = User::where("username", $request->get("username"));
 
         /**
          * User::where("username", $request->get("username")); 这个是获取了username = $request->get("username") 的数据资源
@@ -136,5 +147,15 @@ class AuthController extends Controller
 
 
         return redirect("/login");
+    }
+
+
+    public function loginOut(){
+        $username = $_SESSION["username"];
+        $_SESSION[$username] = '';
+        $_SESSION["username"] = "";
+//        unset($_SESSION[$username])
+        return redirect("/login");
+//        Session::put("username", "");
     }
 }
