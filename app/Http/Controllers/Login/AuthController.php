@@ -83,6 +83,7 @@ class AuthController extends Controller
         $password = md5($request->get("password").$request->get("username"));
         // 第一种
         $user = new User();
+
         $user ->username = $request->get("username");
         $user ->password = $password;
         if(!$user->save()){
@@ -95,16 +96,32 @@ class AuthController extends Controller
 
         }
 
-        /* 判断注册时用户名是否已经存在
+        /*
+        判断注册时用户名是否已经存在
 
-               */
+        */
+
         $user1 = User::where("username", $request->get("username"));
-        if($user->username==$user1->username){
-            echo "<script>alert('用户名已存在，请重新注册！')</script>";
 
-        }else{
-            return view("admin.login");
-        }
+        /**
+         * User::where("username", $request->get("username")); 这个是获取了username = $request->get("username") 的数据资源
+         * User::where("username", $request->get("username"))->first() 这个是获取username = $request->get("username") 的单条数据
+         * User::where("username", $request->get("username"))->get() 这个是获取username = $request->get("username")的所有或者多天数据
+         */
+
+        /**
+         * 这里需要判断前端传过来的username 和我们数据库查询出来的username做对比
+         * $request->get("username") 前端传过来的数据库
+         * $user = User::where("username", $request->get("username"))->first()  获取username =$request->get("username") 的数据
+         * 如果 $user 不等于null 证明数据已经存在的  这时候我们要给她提示说 用户们已存在了，不需要重复注册
+         * 相反 则证明这个username 还没存在我们数据库中可以让他提交
+         */
+//        if($user->username==$user1->username){
+//            echo "<script>alert('用户名已存在，请重新注册！')</script>";
+//
+//        }else{
+//            return view("admin.login");
+//        }
 
 
 //        $result = $user -> insert([
