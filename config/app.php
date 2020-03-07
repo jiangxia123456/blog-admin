@@ -178,6 +178,7 @@ return [
 
         // 验证码
         Mews\Captcha\CaptchaServiceProvider::class,
+        Ender\UEditor\UEditorServiceProvider::class
     ],
 
     /*
@@ -229,7 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
-
+        'UEditor'   => Ender\UEditor\UEditor::class
     ],
 
 ];

@@ -47,6 +47,7 @@ class LoginsController extends Controller
     }
     //注册提交
     public function toRegister(Request $request){
+
         //进行表单验证
         $validator = Validator::make($request->all(),[
             'username'=>'required|alpha',

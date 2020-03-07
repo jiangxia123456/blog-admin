@@ -24,7 +24,7 @@
             <p style="text-align: center;color: red">{{ $captcha[0] }}</p>
             @endif
             <input  name="captcha" placeholder="验证码"  lay-verify="required" class="layui-input" style="width: 40%;float: left">
-            <img src="{{captcha_src()}}" style="float: left;margin-left:20px" name="captcha">
+            <img id="captcha" src="{{captcha_src()}}" style="float: left;margin-left:20px" name="captcha" onclick="updateCode()">
             <hr class="hr15">
             <input value="注册" lay-submit lay-filter="login" style="width:100%;" type="submit">
             <hr class="hr20" >
@@ -32,6 +32,15 @@
     </div>
 
     <script>
+        var i =1;
+        updateCode = function(){
+            let captcha = document.getElementById("captcha");
+            var src = captcha.getAttribute("src");
+            i++;
+            var newSrc = src + i;
+            captcha.src = newSrc;
+        };
+
         $(function  () {
             // layui.use('form', function(){
             //   var form = layui.form;

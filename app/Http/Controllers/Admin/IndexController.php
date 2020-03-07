@@ -17,6 +17,13 @@ class IndexController extends BaseController
         return view("admin.index");
     }
 
+    public function welcome(Request $request){
+
+//        var_dump(Session::get("username"));
+
+        return view("admin.welcome");
+    }
+
     public function add(){
         return view("admin.index");
     }

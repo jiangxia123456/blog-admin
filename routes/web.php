@@ -44,6 +44,9 @@ Route::group([
     "prefix"=>"admin",
     'middleware' => ['loginAuth']
 ], function () {
+    Route::get("/welcome","Admin\IndexController@welcome");
     Route::get("/index","Admin\IndexController@index");
     Route::get("/add","Admin\IndexController@add");
+    Route::get("/article_list","Admin\ArticleController@list");
+    Route::get("/article_add","Admin\ArticleController@created");
 });
