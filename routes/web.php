@@ -29,6 +29,11 @@ Route::post("/toRegister","Login\AuthController@toRegister");
 Route::get("/loginOut","Login\AuthController@loginOut");
 
 
+Route::get("/logins","Logins\LoginsController@login");
+Route::post("/toLogins","Logins\LoginsController@toLogin");
+Route::get("/registers","Logins\LoginsController@register");
+Route::post("/toRegisters","Logins\LoginsController@toRegister");
+
 
 Route::prefix('admin')->group(function () {
 

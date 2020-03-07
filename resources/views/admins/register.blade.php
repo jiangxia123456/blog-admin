@@ -1,30 +1,31 @@
 <html>
-@include("admin.header")
+@include("admins.header")
 
 <body class="login-bg">
     
     <div class="login">
         <div class="message">管理注册</div>
         <div id="darkbannerwrap"></div>
-        <form method="post" class="layui-form" class="layui-form" action="/toRegister" >
+        <form method="post" class="layui-form" class="layui-form" action="/toRegisters" >
             @csrf
             @if ( !empty($username) )
             <p style="text-align: center;color: red">{{ $username[0] }}</p>
             @endif
             <input name="username" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
             <hr class="hr15">
-            @if ( !empty($password) )
+            @if (!empty($password) )
             <p style="text-align: center;color: red">{{ $password[0] }}</p>
             @endif
             <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
             <hr class="hr15">
             <input name="password" lay-verify="required" placeholder="二次密码"  type="password" class="layui-input">
             <hr class="hr15">
-            @if ( !empty($captcha) )
+            @if (!empty($captcha) )
             <p style="text-align: center;color: red">{{ $captcha[0] }}</p>
             @endif
             <input  name="captcha" placeholder="验证码"  lay-verify="required" class="layui-input" style="width: 40%;float: left">
             <img src="{{captcha_src()}}" style="float: left;margin-left:20px" name="captcha">
+
             <hr class="hr15">
             <input value="注册" lay-submit lay-filter="login" style="width:100%;" type="submit">
             <hr class="hr20" >
@@ -48,7 +49,6 @@
             //   });
             // });
         })
-
 
         
     </script>
