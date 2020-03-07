@@ -35,8 +35,8 @@ class LoginsController extends Controller
         }
 
 
-    // 重定向到首页
-return redirect("admins/index");
+    // 回到index首页
+return view("admins.index");
 }
 
 
@@ -49,12 +49,12 @@ return redirect("admins/index");
     public function toRegister(Request $request){
         //进行表单验证
         $validate= Validator::make($request->all(),[
-            'username'=>'required|alpha',
+            'username'=>'required|between:6-12',
             'password'=>'required|between:6-12',
             'captcha'=>'required|captcha'
 
         ],[     "username.required"=>"用户名不能为空",
-                "username.alpha"=>"用户名不是全字母",
+                "username.between"=>"用户名长度不符合",
                 "password.required"=>"密码不能为空",
                 "password.between"=>"密码长度不符合",
                 "captcha.required"=>"验证码不能为空",
