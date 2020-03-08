@@ -22,6 +22,9 @@
 
 //(new IndexController())->index()
 
+// 数据库操作
+Route::get("/db/index","DB\DbTestController@index");
+
 Route::get("/login","Login\AuthController@login");
 Route::post("/toLogin","Login\AuthController@toLogin");
 Route::get("/register","Login\AuthController@register");

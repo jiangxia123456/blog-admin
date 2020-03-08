@@ -15,7 +15,7 @@
       <table class="layui-table">
         <thead>
           <tr>
-            <th>文章标题</th>
+            <th>文章标题{{ $username }}</th>
             <th>内容</th>
             <th>阅读次数</th>
             <th>置顶状态</th>
@@ -27,23 +27,47 @@
             </tr>
         </thead>
         <tbody>
+        <?php foreach ($data as $item){ ?>
           <tr>
-            <td>vgggg</td>
-            <td></td>
-             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+              <td><?php echo $item->title; ?></td>
+              <td><?php echo $item->content?mb_substr($item->content,0,5):""; ?></td>
+              <td><?php echo $item->read_number; ?></td>
+              <td><?php echo $item->top_num; ?></td>
+              <td><?php echo $item->status; ?></td>
+              <td><?php echo $item->created_at; ?></td>
+              <td><?php echo $item->updated_at; ?></td>
+              <td><?php echo $item->user_id; ?></td>
             <td class="td-manage">
-              <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
-                <i class="layui-icon">&#xe63c;</i>
-              </a>
-              <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                <i class="layui-icon">&#xe640;</i>
-              </a>
+                <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe63c;</i>
+                </a>
+                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
             </td>
           </tr>
+        <?php } ?>
+
+        @foreach ($data as $item)
+        <tr>
+            <td>{{ $item->title  }}</td>
+            <td></td>
+            <td>{{ $item->read_number  }}</td>
+            <td>{{ $item->top_num  }}</td>
+            <td>{{ $item->status  }}</td>
+            <td>{{ $item->created_at  }}</td>
+            <td>{{ $item->updated_at  }}</td>
+            <td>{{ $item->user_id  }}</td>
+            <td class="td-manage">
+                <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
+                    <i class="layui-icon">&#xe63c;</i>
+                </a>
+                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+            </td>
+        </tr>
+        @endforeach
         </tbody>
       </table>
       <div class="page">
