@@ -33,10 +33,18 @@ Route::get("/logins","Logins\LoginsController@login");
 Route::post("/toLogins","Logins\LoginsController@toLogin");
 Route::get("/registers","Logins\LoginsController@register");
 Route::post("/toRegisters","Logins\LoginsController@toRegister");
+Route::get("/loginOuts","Logins\LoginsController@loginOut");
 
 
-Route::prefix('admin')->group(function () {
 
+
+Route::prefix('admins')->group(function () {
+
+    Route::get("/welcomes","Admins\IndexController@welcome");
+    Route::get("/indexs","Admins\IndexController@index");
+    Route::get("/adds","Admins\IndexController@add");
+    Route::get("/wenzhang_list","Admins\ArticleController@list");
+    Route::get("/wenzhang_add","Admins\ArticleController@created");
 });
 
 
@@ -50,3 +58,6 @@ Route::group([
     Route::get("/article_list","Admin\ArticleController@list");
     Route::get("/article_add","Admin\ArticleController@created");
 });
+
+
+

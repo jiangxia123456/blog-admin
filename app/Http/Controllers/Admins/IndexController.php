@@ -1,32 +1,32 @@
 <?php
 
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admins;
 
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 
-
-class IndexController extends BaseController
+class IndexController extends Controller
 {
     // 首页
     public function index(Request $request){
 
 //        var_dump(Session::get("username"));
 
-        return view("admin.index");
+        return view("admins.index");
     }
 
     public function welcome(Request $request){
 
 //        var_dump(Session::get("username"));
 
-        return view("admin.welcome");
+        return view("admins.welcome");
     }
 
     public function add(){
-        return view("admin.index");
+        return view("admins.index");
     }
 }

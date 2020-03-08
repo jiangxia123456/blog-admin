@@ -96,4 +96,7 @@ class LoginsController extends Controller
             echo "<script>alert('信息注册失败，请重新申请注册！')</script>";
         }
     }
+    public function loginOut(){
+        return view("admins.login");
+    }
 }

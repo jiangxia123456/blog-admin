@@ -16,26 +16,25 @@
         <thead>
           <tr>
             <th>文章标题</th>
-            <th>标签</th>
-            <th>分类</th>
+            <th>内容</th>
             <th>阅读次数</th>
-            <th>发布状态</th>
             <th>置顶状态</th>
+            <th>发布状态</th>
+            <th>发布时间</th>
+            <th>更新时间</th>
             <th>作者</th>
-            <th>时间</th>
-            <th >操作</th>
+            <th>操作</th>
             </tr>
         </thead>
         <tbody>
           <tr>
-            <td>2017009171822298053</td>
-            <td>老王:18925139194</td>
-            <td>7829.10</td>
-            <td>7854.10</td>
-            <td>待确认</td>
-            <td>未支付</td>
-            <td>未发货</td>
-            <td>2017-08-17 18:22</td>
+            <td>vgggg</td>
+            <td></td>
+             <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td class="td-manage">
               <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
                 <i class="layui-icon">&#xe63c;</i>

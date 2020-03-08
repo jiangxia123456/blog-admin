@@ -1,4 +1,4 @@
-@include("admin.header")
+@include("admins.header")
 <html>
     <body>
         <div class="x-body">

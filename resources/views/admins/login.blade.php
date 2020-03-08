@@ -1,6 +1,6 @@
-
-<html>
 @include("admins.header")
+<html>
+
 <body class="login-bg">
     
     <div class="login">
