@@ -24,6 +24,7 @@
 
 // 数据库操作
 Route::get("/db/index","DB\DbTestController@index");
+Route::get("/index","DB\DateTestController@index");
 
 Route::get("/login","Login\AuthController@login");
 Route::post("/toLogin","Login\AuthController@toLogin");
@@ -61,7 +62,9 @@ Route::group([
     Route::get("/article_list","Admin\ArticleController@list");
     Route::get("/article_add","Admin\ArticleController@created");
     Route::get("/article_edit","Admin\ArticleController@updated");
-    Route::get("/article_delete","Admin\ArticleController@deleted");
+    Route::post("/to_atricle_edit","Admin\ArticleController@toUpdated");
+    Route::get("/article_/to_atricle_editdelete","Admin\ArticleController@deleted");
+
 });
 
 

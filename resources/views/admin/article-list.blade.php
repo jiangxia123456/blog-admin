@@ -38,10 +38,11 @@
               <td><?php echo $item->updated_at; ?></td>
               <td><?php echo $item->user_id; ?></td>
             <td class="td-manage">
-                <a _href="/admin/article_edit">
+
+                    <a href="/admin/article_edit?id=<?php echo $item->id; ?>">
                     <i class="layui-icon">&#xe63c;</i>
                 </a>
-                <a _href="/admin/article_delete">
+                <a href="/admin/article_delete?id=<?php echo $item->id; ?>">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
             </td>
