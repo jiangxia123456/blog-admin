@@ -1,5 +1,5 @@
 @include("admin.header")
-  
+  <html>
   <body>
     <div class="x-body">
       <div class="layui-row">
@@ -15,7 +15,7 @@
       <table class="layui-table">
         <thead>
           <tr>
-            <th>文章标题{{ $username }}</th>
+            <th>文章标题</th>
             <th>内容</th>
             <th>阅读次数</th>
             <th>置顶状态</th>
@@ -38,19 +38,19 @@
               <td><?php echo $item->updated_at; ?></td>
               <td><?php echo $item->user_id; ?></td>
             <td class="td-manage">
-                <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
+                <a _href="/admin/article_edit">
                     <i class="layui-icon">&#xe63c;</i>
                 </a>
-                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                <a _href="/admin/article_delete">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
             </td>
           </tr>
         <?php } ?>
 
-        @foreach ($data as $item)
+       <!-- @foreach ($data as $item)
         <tr>
-            <td>{{ $item->title  }}</td>
+       <td>{{ $item->title  }}</td>
             <td></td>
             <td>{{ $item->read_number  }}</td>
             <td>{{ $item->top_num  }}</td>
@@ -68,6 +68,7 @@
             </td>
         </tr>
         @endforeach
+        -->
         </tbody>
       </table>
       <div class="page">

@@ -13,7 +13,6 @@ class ArticleController extends Controller
         // 按置顶 和 时间先后  每一页只需要十条数据 查询
 
         $data = Article::paginate(5);
-        dd($data);
 
         return view("admin.article-list", ["data"=>$data, "username"=>"jiangxia"]);
     }
@@ -26,6 +25,7 @@ class ArticleController extends Controller
 
     public function updated(){
 
+        return view("admin.article-edit");
     }
 
     public function deleted(){

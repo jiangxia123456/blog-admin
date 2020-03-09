@@ -43,11 +43,11 @@ Route::get("/loginOuts","Logins\LoginsController@loginOut");
 
 Route::prefix('admins')->group(function () {
 
-    Route::get("/welcomes","Admins\IndexController@welcome");
-    Route::get("/indexs","Admins\IndexController@index");
-    Route::get("/adds","Admins\IndexController@add");
-    Route::get("/wenzhang_list","Admins\ArticleController@list");
-    Route::get("/wenzhang_add","Admins\ArticleController@created");
+    Route::get("/welcome","Admins\IndexController@welcome");
+    Route::get("/index","Admins\IndexController@index");
+    Route::get("/add","Admins\IndexController@add");
+    Route::get("/article_list","Admins\ArticleController@list");
+    Route::get("/article_add","Admins\ArticleController@created");
 });
 
 
@@ -60,6 +60,8 @@ Route::group([
     Route::get("/add","Admin\IndexController@add");
     Route::get("/article_list","Admin\ArticleController@list");
     Route::get("/article_add","Admin\ArticleController@created");
+    Route::get("/article_edit","Admin\ArticleController@updated");
+    Route::get("/article_delete","Admin\ArticleController@deleted");
 });
 
 

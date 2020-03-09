@@ -10,13 +10,13 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="/admins/wenzhang_list">
+                        <a _href="/admins/article_list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>文章列表</cite>
                         </a>
                     </li >
                     <li>
-                        <a _href="/admins/wenzhang_add">
+                        <a _href="/admins/article_add">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>添加文章</cite>
                         </a>
@@ -37,7 +37,7 @@
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='/admins/welcomes' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <iframe src='/admins/welcome' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
         </div>
     </div>
