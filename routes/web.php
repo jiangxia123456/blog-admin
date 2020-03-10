@@ -61,9 +61,11 @@ Route::group([
     Route::get("/add","Admin\IndexController@add");
     Route::get("/article_list","Admin\ArticleController@list");
     Route::get("/article_add","Admin\ArticleController@created");
+    Route::post("to_article_add","Admin\ArticleController@toCreated");
     Route::get("/article_edit","Admin\ArticleController@updated");
     Route::post("/to_atricle_edit","Admin\ArticleController@toUpdated");
-    Route::get("/article_/to_atricle_editdelete","Admin\ArticleController@deleted");
+    Route::get("/article_delete","Admin\ArticleController@deleted");
+    Route::post("/article_update_title","Admin\ArticleController@articleUpdateTitle");
 
 });
 

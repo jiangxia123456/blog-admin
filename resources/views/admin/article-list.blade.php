@@ -29,7 +29,10 @@
         <tbody>
         <?php foreach ($data as $item){ ?>
           <tr>
-              <td><?php echo $item->title; ?></td>
+              <td ondblclick="updateTitle(this)">
+                  <span ><?php echo $item->title; ?></span>
+                  <input type="text" value="{{ $item->title }}" class="layui-input" style="display:none" onkeyup="postTile(event,this,{{ $item->id }})" >
+              </td>
               <td><?php echo $item->content?mb_substr($item->content,0,5):""; ?></td>
               <td><?php echo $item->read_number; ?></td>
               <td><?php echo $item->top_num; ?></td>
@@ -42,7 +45,7 @@
                     <a href="/admin/article_edit?id=<?php echo $item->id; ?>">
                     <i class="layui-icon">&#xe63c;</i>
                 </a>
-                <a href="/admin/article_delete?id=<?php echo $item->id; ?>">
+                <a _href="/admin/article_delete?id=<?php echo $item->id; ?>" onclick="delete_article({{ $item->id }})">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
             </td>
@@ -72,19 +75,50 @@
         -->
         </tbody>
       </table>
+
       <div class="page">
-        <div>
-          <a class="prev" href="">&lt;&lt;</a>
-          <a class="num" href="">1</a>
-          <span class="current">2</span>
-          <a class="num" href="">3</a>
-          <a class="num" href="">489</a>
-          <a class="next" href="">&gt;&gt;</a>
-        </div>
+          {{ $data->links() }}
       </div>
 
     </div>
     <script>
+        function updateTitle(obj){
+            // obj == 点击的td
+            $(obj).children("span").hide();
+            $(obj).children("input").show();
+        }
+
+
+
+        function postTile(event,obj,article_id){
+            if(event.keyCode ==13){
+                var title = $(obj).val();
+                $.ajax({
+                    url:"/admin/article_update_title",
+                    type:"post",
+                    dataType:"json",
+                    data:{
+                        "title":title,
+                        "id":article_id,
+                        "_token":"{{ csrf_token() }}"
+                    },
+                    success:function (result) {
+                        if(result.code == 200){
+                            alert(result.message);
+                            $(obj).hide();
+                            $(obj).siblings("span").text(title).show();
+                        }else{
+                            alert(result.message);
+                        }
+
+                    },
+                    error:function (error) {
+
+                    }
+                })
+            }
+
+        }
       layui.use('laydate', function(){
         var laydate = layui.laydate;
         
@@ -97,8 +131,32 @@
         laydate.render({
           elem: '#end' //指定元素
         });
-      });
+      }); 
+      function delete_article(id) {
+          layer.confirm('你确定要删除吗？',function(index){
+              // ajax 异步请求
+              $.ajax({
+                  url: "/admin/article_delete", //  请求的地址
+                  type: 'get',                  // 请求的方式
+                  dataType: 'json',             // 请求数据的类型 json xml
+                  data: {                       // 传过去的数据
+                    "id":id
+                  },
+                  success: function(result){       // http code = 200 请求成功返回的结果
+                      if(result.code == 400){
+                          alert(result.message)
+                      }else{
+                          alert(result.message);
+                          window.location.reload();
+                      }
 
+                  },
+                  error: function(error){         // 错误返回的结果
+                    console.log("失败了："+error)
+                  }
+              })
+          });
+      }
        /*用户-停用*/
       function member_stop(obj,id){
           layer.confirm('确认要停用吗？',function(index){

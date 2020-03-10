@@ -1,13 +1,22 @@
 @include("admin.header")
+<style>
+    #edui1{
+        width: 600px !important;
+        z-index: 1 !important;
+
+    }
+</style>
 <body>
+
     <div class="x-body">
-        <form class="layui-form">
+        <form class="layui-form" method="post" action="/admin/to_article_add">
+            @csrf
           <div class="layui-form-item">
               <label for="username" class="layui-form-label">
                   <span class="x-red">*</span>文章标题
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="username" name="username" required="" lay-verify="required"
+                  <input type="text" id="username" name="title" required="" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -16,9 +25,10 @@
                     <span class="x-red">*</span>标签
                 </label>
                 <div class="layui-input-inline">
-                    <select id="shipping" name="shipping" class="valid">
-                        <option value="shentong">PHP</option>
-                        <option value="shunfeng">JAVA</option>
+                    <select id="shipping" name="tag" class="valid">
+                        @foreach($tags as $tag)
+                        <option value="{{ $tag->id }}">{{ $tag->tag_name }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -27,9 +37,10 @@
                     <span class="x-red">*</span>分类
                 </label>
                 <div class="layui-input-inline">
-                    <select id="shipping" name="shipping" class="valid">
-                        <option value="shentong">PHP</option>
-                        <option value="shunfeng">JAVA</option>
+                    <select id="shipping" name="sort" class="valid">
+                        @foreach($category as $cate)
+                        <option value="{{$cate->id}}">{{$cate->name}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -38,9 +49,21 @@
                     <span class="x-red">*</span>是否置顶
                 </label>
                 <div class="layui-input-inline">
-                    <select id="shipping" name="shipping" class="valid">
+                    <select id="shipping" name="top" class="valid">
                         <option value="0">否</option>
                         <option value="1">是</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="status" class="layui-form-label">
+                    <span class="x-red">*</span>是否发布
+                </label>
+                <div class="layui-input-inline">
+                    <select id="shipping" name="status" class="valid">
+                        <option value="0">不发布</option>
+                        <option value="1">发布</option>
                     </select>
                 </div>
             </div>
@@ -49,9 +72,10 @@
                     <span class="x-red">*</span>作者
                 </label>
                 <div class="layui-input-inline">
-                    <select id="shipping" name="shipping" class="valid">
-                        <option value="0">wudner</option>
-                        <option value="1">jiangxia</option>
+                    <select id="shipping" name="author" class="valid">
+                        @foreach($users as $user)
+                        <option value="{{$user->id}}">{{$user->username}}</option>
+                       @endforeach
                     </select>
                 </div>
             </div>
@@ -104,18 +128,18 @@
           });
 
           //监听提交
-          form.on('submit(add)', function(data){
-            console.log(data);
-            //发异步，把数据提交给php
-            layer.alert("增加成功", {icon: 6},function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-            return false;
-          });
-          
+          // form.on('submit(add)', function(data){
+          //   console.log(data);
+          //   //发异步，把数据提交给php
+          //   layer.alert("增加成功", {icon: 6},function () {
+          //       // 获得frame索引
+          //       var index = parent.layer.getFrameIndex(window.name);
+          //       //关闭当前frame
+          //       parent.layer.close(index);
+          //   });
+          //   return false;
+          // });
+          //
           
         });
     </script>
