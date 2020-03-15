@@ -9,8 +9,20 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Validator;
 
+/**
+ * 登录注册
+ * Class AuthController
+ * @package App\Http\Controllers\Login
+ * @author jiangxia
+ * date 2020-03-02
+ */
 class AuthController extends Controller
 {
+    /**
+     * 登录页面
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function login(Request $request){
 
         return view('admin.login');
@@ -22,6 +34,22 @@ class AuthController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function toLogin(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|regex:/^1[345678]\d{9}$/',
+            'password' => 'required|between:6,12',
+        ],[
+            "username.required"=>"手机号不能为空",
+            "username.regex"=>"手机号码不符合规则",
+            "password.required"=>"密码不能为空",
+            "password.between"=>"密码长度不符合规则"
+
+        ]);
+
+        if($validator->fails()){
+            $error = $validator->errors()->toArray();
+            return view("admin.login", $error);
+        }
 
         // 验证用户 username
         $user = User::where("username", $request->get("username"))->first();
@@ -41,33 +69,36 @@ class AuthController extends Controller
         $_SESSION["username"] = $request->get("username");
         $_SESSION[$request->get("username")] = true;
 
-        // 验证验证码
-
         // 重定向到首页
         return redirect("admin/index");
 
     }
 
 
-    // 注册
+    /**
+     * 注册页面
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function register(Request $request){
 
-        // select * from user where username=wudner limit 1
-//        $user = User::where("username", "wudner")->first()->toarray();
-//        dd($user);
         return view("admin.register");
     }
 
-    // 提交注册
+    /**
+     * 提交注册信息
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function toRegister(Request $request){
         // 表单验证单
         $validator = Validator::make($request->all(), [
-            'username' => 'required|between:6,12',
+            'username' => 'required|regex:/^1[345678]\d{9}$/',
             'password' => 'required|between:6,12',
             "captcha" => "required|captcha"
         ],[
-            "username.required"=>"用户名不能为空",
-            "username.between"=>"用户名长度不符合规则",
+            "username.required"=>"手机号码不能为空",
+            "username.regex"=>"手机号码不符合规则",
             "password.required"=>"密码不能为空",
             "password.between"=>"密码长度不符合规则",
             "captcha.required"=>"验证码不能为空",
@@ -80,11 +111,11 @@ class AuthController extends Controller
             return view("admin.register", $error);
         }
 
-
-        // pa判断用户名是否存在了数据库里面
+        // 判断用户名是否存在了数据库里面
         $user = User::where("username", $request->get("username"))->first();
         if($user){
-            return "不准注册";
+            echo "<script>alert('信息注册失败！')</script>";
+            return view("admin.register");
         }
 
 
@@ -107,13 +138,6 @@ class AuthController extends Controller
 
         }
 
-        /*
-        判断注册时用户名是否已经存在
-
-        */
-
-//        $user1 = User::where("username", $request->get("username"));
-
         /**
          * User::where("username", $request->get("username")); 这个是获取了username = $request->get("username") 的数据资源
          * User::where("username", $request->get("username"))->first() 这个是获取username = $request->get("username") 的单条数据
@@ -127,35 +151,20 @@ class AuthController extends Controller
          * 如果 $user 不等于null 证明数据已经存在的  这时候我们要给她提示说 用户们已存在了，不需要重复注册
          * 相反 则证明这个username 还没存在我们数据库中可以让他提交
          */
-//        if($user->username==$user1->username){
-//            echo "<script>alert('用户名已存在，请重新注册！')</script>";
-//
-//        }else{
-//            return view("admin.login");
-//        }
-
-
-//        $result = $user -> insert([
-//            "username"=>$request->get("username"),
-//            "password"=>$password
-//        ]);
-//        if(!$result){
-//            // 处理
-//        }
-
-//        dd($request->all());
 
 
         return redirect("/login");
     }
 
 
+    /**
+     * 退出登录
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function loginOut(){
         $username = $_SESSION["username"];
         $_SESSION[$username] = '';
         $_SESSION["username"] = "";
-//        unset($_SESSION[$username])
         return redirect("/login");
-//        Session::put("username", "");
     }
 }

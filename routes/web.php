@@ -26,6 +26,7 @@
 Route::get("/db/index","DB\DbTestController@index");
 Route::get("/index","DB\DateTestController@index");
 
+// 登录注册模块
 Route::get("/login","Login\AuthController@login");
 Route::post("/toLogin","Login\AuthController@toLogin");
 Route::get("/register","Login\AuthController@register");
@@ -33,25 +34,7 @@ Route::post("/toRegister","Login\AuthController@toRegister");
 Route::get("/loginOut","Login\AuthController@loginOut");
 
 
-Route::get("/logins","Logins\LoginsController@login");
-Route::post("/toLogins","Logins\LoginsController@toLogin");
-Route::get("/registers","Logins\LoginsController@register");
-Route::post("/toRegisters","Logins\LoginsController@toRegister");
-Route::get("/loginOuts","Logins\LoginsController@loginOut");
-
-
-
-
-Route::prefix('admins')->group(function () {
-
-    Route::get("/welcome","Admins\IndexController@welcome");
-    Route::get("/index","Admins\IndexController@index");
-    Route::get("/add","Admins\IndexController@add");
-    Route::get("/article_list","Admins\ArticleController@list");
-    Route::get("/article_add","Admins\ArticleController@created");
-});
-
-
+// 后台模块
 Route::group([
     "prefix"=>"admin",
     'middleware' => ['loginAuth']
@@ -68,6 +51,27 @@ Route::group([
     Route::post("/article_update_title","Admin\ArticleController@articleUpdateTitle");
 
 });
+
+//
+//Route::get("/logins","Logins\LoginsController@login");
+//Route::post("/toLogins","Logins\LoginsController@toLogin");
+//Route::get("/registers","Logins\LoginsController@register");
+//Route::post("/toRegisters","Logins\LoginsController@toRegister");
+//Route::get("/loginOuts","Logins\LoginsController@loginOut");
+//
+//
+//
+//
+//Route::prefix('admins')->group(function () {
+//
+//    Route::get("/welcome","Admins\IndexController@welcome");
+//    Route::get("/index","Admins\IndexController@index");
+//    Route::get("/add","Admins\IndexController@add");
+//    Route::get("/article_list","Admins\ArticleController@list");
+//    Route::get("/article_add","Admins\ArticleController@created");
+//});
+
+
 
 
 

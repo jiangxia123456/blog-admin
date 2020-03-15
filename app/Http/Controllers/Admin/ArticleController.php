@@ -10,17 +10,31 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * 文章处理
+ * Class ArticleController
+ * @package App\Http\Controllers\Admin
+ * @author jiangxia
+ * date 2020-03-03
+ */
 class ArticleController extends Controller
 {
 
+    /**
+     * 文章列表
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function list(){
         // 按置顶 和 时间先后  每一页只需要十条数据 查询
-
         $data = Article::orderBy("top_num", "desc")->orderBy("created_at" ,"desc")->paginate(5);
-//        dd($data->links());
+
         return view("admin.article-list", ["data"=>$data, "username"=>"jiangxia"]);
     }
 
+    /**
+     * 添加文章页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function created(){
 
         // 标签列表
@@ -34,6 +48,12 @@ class ArticleController extends Controller
 
         return view("admin.article-add", ["tags"=>$tags,"category"=>$category,"users"=>$users]);
     }
+
+    /**
+     * 提交文章信息添加
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function toCreated(Request $request){
         DB::beginTransaction();
         // 插入一条文章
@@ -75,6 +95,11 @@ class ArticleController extends Controller
         return redirect('admin/article_list');
     }
 
+    /**
+     * 添加文章页面
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function updated(Request $request){
         //查询user数据表中的id,username的字段值
         $user = DB::table("user")->select("id","username")->get();
@@ -95,6 +120,11 @@ class ArticleController extends Controller
             "category_id"=>$categoryId,"tag"=>$tag,"tagId"=>$tagId]);
     }
 
+    /**
+     * 提交文章信息修改
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function toUpdated(Request $request){
         //获取传入过来的字段值
         $title=$request->get("title");
@@ -125,7 +155,11 @@ class ArticleController extends Controller
         }
     }
 
-    // 修改标题
+    /**
+     * 异步修改文章标题
+     * @param Request $request
+     * @return array
+     */
     public function articleUpdateTitle(Request $request){
         if(!Article::where("id", $request->get("id"))->update([
             "title"=>$request->get("title")
@@ -144,6 +178,11 @@ class ArticleController extends Controller
     }
 
 
+    /**
+     * 删除文章
+     * @param Request $request
+     * @return array
+     */
     public function deleted(Request $request){
         DB::beginTransaction();
         $result=DB::table("article")->where("id",$request ->get("id"))->delete();
@@ -184,6 +223,10 @@ class ArticleController extends Controller
     }
 
 
+    /**
+     * 文章详情
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function detail(){
         return view("article-detail");
     }
